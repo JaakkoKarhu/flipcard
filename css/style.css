@@ -58,6 +58,11 @@
 
 }
 
+.card.dummy{
+
+  background-color: cyan;
+}
+
 .karhu.flip-card.btn {
 
   height: 40px;

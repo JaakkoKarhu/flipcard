@@ -2,10 +2,17 @@ var direction ='';
 var degree = '';
 var easing = '';
 var flipCount = 0;
+var maxLength = 0;
 
 $(document).ready(function() {
 
+  // Onit flipcards
   $('.karhu.flip-card.holder').each(function(index) {
+
+    if ($(this).find('.card').length > maxLength) {
+
+      maxLength = $(this).find('.card').length;
+    };
 
     $(this).find('.card-1').css({
 
@@ -16,14 +23,27 @@ $(document).ready(function() {
       'transform:':'perspective(500px) rotateY(270deg)'}).addClass('current');
   });
 
+  $('.karhu.flip-card.holder').each(function(index) {
+
+    thisLength = $(this).find('.card').length;
+    if (thisLength < maxLength) {
+
+      console.log('lyhyempis');
+      for(var a = thisLength; a < maxLength; a++) {
+
+        console.log('addfunction here');
+        $(this).append('<div class="card dummy"></div>');
+      }
+    };
+  });
+
+  // Init end
+
   $('.karhu.flip-card.btn').on('click', function() {
 
     if ($(this).hasClass('preventClick')) {
-      console.log('clickPrevented');
       return;
     };
-
-    console.log('does reach?');
 
     if ($(this).hasClass('next')) {
 
@@ -53,11 +73,10 @@ function findFlippinCards(direction, deg) {
   $('.karhu.flip-card.holder').each(function(index) {
 
     var target = $(this).find('.current')
+    console.log(target.length);
     setTimeout(function(){ flipCard(direction, target, deg, 'ease-in')}, timeout);
     timeout = timeout + 100;
   });
-
-  console.log(timeout);
 };
 
 function flipCard(direction, target, deg, easing) {
@@ -91,7 +110,6 @@ function transitionEndEvent(_this) {
 
   if(flipCount == $('.karhu.flip-card.holder').length) {
 
-    console.log('tilili');
     $('.karhu.flip-card.preventClick').removeClass('preventClick');
   }
 }
