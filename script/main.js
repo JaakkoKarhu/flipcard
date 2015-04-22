@@ -14,7 +14,7 @@ $(document).ready(function() {
       maxLength = $(this).find('.card').length;
     };
 
-    $(this).find('.card-1').css({
+    $(this).find('.card:first-child').css({
 
       '-webkit-transform':'rotateY(360deg)',
       '-moz-transform':'rotateY(360deg)',
@@ -28,14 +28,14 @@ $(document).ready(function() {
     thisLength = $(this).find('.card').length;
     if (thisLength < maxLength) {
 
-      console.log('lyhyempis');
       for(var a = thisLength; a < maxLength; a++) {
 
-        console.log('addfunction here');
         $(this).append('<div class="card dummy"></div>');
       }
     };
   });
+
+  setButtons();
 
   // Init end
 
@@ -111,5 +111,13 @@ function transitionEndEvent(_this) {
   if(flipCount == $('.karhu.flip-card.holder').length) {
 
     $('.karhu.flip-card.preventClick').removeClass('preventClick');
+    setButtons();
   }
+}
+
+function setButtons() {
+
+  $('.karhu.flip-card.btn.next, .karhu.flip-card.btn.prev').removeClass('hide');
+  if ($('.karhu.flip-card .current').next('.card').length == 0) { ($('.karhu.flip-card.btn.next').addClass('hide')); }
+  else if ($('.karhu.flip-card .current').prev('.card').length == 0) { ($('.karhu.flip-card.btn.prev').addClass('hide')); }
 }
