@@ -1,7 +1,15 @@
-.flip-card.holder{
+.clearfix {
+
+  clear: both;
+  width: 100%;
+}
+
+.karhu.flip-card.holder{
 
   width: 200px;
   height: 300px;
+  float: left;
+  border: dashed 1px gray;
   position: relative;
   -webkit-perspective: 1000;
   -moz-perspective: 1000;
@@ -27,16 +35,16 @@
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
 
-  -webkit-transition: 0.5s ease-in;
-  -moz-transition: 0.5s ease-in;
-  -ms-transition: 0.5s ease-in;
-  -o-transition: 0.5s ease-in;
-  transition: 0.5s ease-in;
+  -webkit-transition: 0.2s ease-in;
+  -moz-transition: 0.2s ease-in;
+  -ms-transition: 0.2s ease-in;
+  -o-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
 
 
 }
 
-.flip-card.holder .card:first-child {
+.karhu.flip-card.holder .card:first-child {
 
 }
 .card-1 { background-color: red; }
@@ -50,7 +58,7 @@
 
 }
 
-.flip-card.btn {
+.karhu.flip-card.btn {
 
   height: 40px;
   width: 40px;
@@ -58,21 +66,17 @@
   background-color: chartreuse;
 }
 
-.flip-card.btn.prev {
+.karhu.flip-card.btn.preventClick {
+
+  background-color: green;
+}
+
+.karhu.flip-card.btn.prev {
 
 
 }
 
-.flip-card.btn.next {
+.karhu.flip-card.btn.next {
 
-
-}
-
-div[style*="-webkit-transform: rotateY(360deg"].card {
-
-
-}
-
-.current {
 
 }
