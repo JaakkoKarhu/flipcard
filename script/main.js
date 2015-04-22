@@ -2,8 +2,7 @@ $(document).ready(function() {
 
   var direction ='';
   var degree = '';
-
-  console.log('Hunting a bug, eh?');
+  var easing = '';
 
   $('.flip-card.holder').each(function(index) {
 
@@ -15,46 +14,40 @@ $(document).ready(function() {
       '-o-transform':'rotateY(360deg)',
       'transform:':'perspective(500px) rotateY(270deg)'}).addClass('current');
   });
+
   $('.btn').on('click', function() {
 
-    console.log('click'); 
-    if ($(this).hasClass('next')) {
-
-      $('.current').next('.card').addClass('nextToAnimate');
-      flipCard('next', '.current', '450deg', 'ease-in');
-    }
-    else if ($(this).hasClass('prev')) {
-
-      $('.current').prev('.card').addClass('nextToAnimate')
-      flipCard('prev', '.current', '270deg', 'ease-in');
-    }
+    if      ($(this).hasClass('next')) { direction = 'next'; degree = '450deg'; }
+    else if ($(this).hasClass('prev')) { direction = 'prev'; degree = '270deg'; }
+    findFlippinCards(direction, degree);
   });
 
-  $('.flip-card.holder .card').bind( 'transitionend', function() {
-
-    console.log('transitionend');
-    if ($(this).hasClass('next')) {
-
-      $(this).removeClass('next').removeClass('current');
-      flipCard( 'next', $(this).next('.nextToAnimate'), '360deg', 'ease-out');
-    }
-    else if ($(this).hasClass('prev')) {
-
-      $(this).removeClass('prev').removeClass('current');
-      flipCard('prev', $(this).prev('.nextToAnimate'), '360deg', 'ease-out');
-    }
-
-    if($(this).hasClass('nextToAnimate')) {
-
-      $(this).removeClass('nextToAnimate').addClass('current');
-    }
-  });
-
+  $('.flip-card.holder .card').bind( 'transitionend', function() { transitionEndEvent(this); });
 });
+
+function findFlippinCards(direction, deg) {
+
+  var timeout = 0;
+  $('.flip-card.holder').each(function(index) {
+
+    console.log('trolo: ' + direction);
+    if(direction == 'next') {
+
+      $(this).find('.current').next('.card').addClass('toBeAnimated');
+    }
+    else if(direction == 'prev') {
+
+      $(this).find('.current').prev('.card').addClass('toBeAnimated');
+    }
+
+    var target = $(this).find('.current')
+    setTimeout(function(){ flipCard(direction, target, deg, 'ease-in')}, timeout);
+    timeout = timeout + 100;
+  });
+};
 
 function flipCard(direction, target, deg, easing) {
 
-  console.log('animate');
   $(target).addClass(direction).css({
 
     '-webkit-transform':'rotateY(' + deg + ')',
@@ -63,6 +56,24 @@ function flipCard(direction, target, deg, easing) {
     '-webkit-transition-transition' : '0.5s ' + easing,
     '-ms-transition' : '0.5s ' + easing,
     'transition' : '0.5s ' + easing
-    //console.log($(this).find(target).next('.card'));
   });
-} 
+}
+
+function transitionEndEvent(_this) {
+
+  if ($(_this).hasClass('next')) {
+
+    $(_this).removeClass('next').removeClass('current');
+    flipCard( 'next', $(_this).next('.toBeAnimated'), '360deg', 'ease-out');
+  }
+  else if ($(_this).hasClass('prev')) {
+
+    $(_this).removeClass('prev').removeClass('current');
+    flipCard('prev', $(_this).prev('.toBeAnimated'), '360deg', 'ease-out');
+  }
+
+  if($(_this).hasClass('toBeAnimated')) {
+
+    $(_this).removeClass('toBeAnimated').addClass('current');
+  }
+}
