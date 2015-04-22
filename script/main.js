@@ -4,7 +4,7 @@ $(document).ready(function() {
   var degree = '';
   var easing = '';
 
-  $('.flip-card.holder').each(function(index) {
+  $('.karhu.flip-card.holder').each(function(index) {
 
     $(this).find('.card-1').css({
 
@@ -15,9 +15,9 @@ $(document).ready(function() {
       'transform:':'perspective(500px) rotateY(270deg)'}).addClass('current');
   });
 
-  $('.btn').on('click', function() {
+  $('.karhu.flip-card.btn').on('click', function() {
 
-    if      ($(this).hasClass('next')) {
+    if ($(this).hasClass('next')) {
 
       direction = 'next';
       degree = '450deg';
@@ -33,13 +33,13 @@ $(document).ready(function() {
     findFlippinCards(direction, degree);
   });
 
-  $('.flip-card.holder .card').bind( 'transitionend', function() { transitionEndEvent(this); });
+  $('.karhu.flip-card.holder .card').bind( 'transitionend', function() { transitionEndEvent(this); });
 });
 
 function findFlippinCards(direction, deg) {
 
   var timeout = 0;
-  $('.flip-card.holder').each(function(index) {
+  $('.karhu.flip-card.holder').each(function(index) {
 
     var target = $(this).find('.current')
     setTimeout(function(){ flipCard(direction, target, deg, 'ease-in')}, timeout);
