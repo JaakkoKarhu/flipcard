@@ -17,8 +17,19 @@ $(document).ready(function() {
 
   $('.btn').on('click', function() {
 
-    if      ($(this).hasClass('next')) { direction = 'next'; degree = '450deg'; }
-    else if ($(this).hasClass('prev')) { direction = 'prev'; degree = '270deg'; }
+    if      ($(this).hasClass('next')) {
+
+      direction = 'next';
+      degree = '450deg';
+      $('.current').next('.card').addClass('toBeAnimated');
+
+    }
+    else if ($(this).hasClass('prev')) {
+
+      direction = 'prev';
+      degree = '270deg';
+      $('.current').prev('.card').addClass('toBeAnimated');
+    }
     findFlippinCards(direction, degree);
   });
 
@@ -29,16 +40,6 @@ function findFlippinCards(direction, deg) {
 
   var timeout = 0;
   $('.flip-card.holder').each(function(index) {
-
-    console.log('trolo: ' + direction);
-    if(direction == 'next') {
-
-      $(this).find('.current').next('.card').addClass('toBeAnimated');
-    }
-    else if(direction == 'prev') {
-
-      $(this).find('.current').prev('.card').addClass('toBeAnimated');
-    }
 
     var target = $(this).find('.current')
     setTimeout(function(){ flipCard(direction, target, deg, 'ease-in')}, timeout);
